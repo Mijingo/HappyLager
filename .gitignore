@@ -9,3 +9,7 @@ craft/app/
 craft/config/license.key
 public/assets/site/_*
 public/assets/site/*/_*
+
+craft/config/db.php
+
+craft/config/general.php

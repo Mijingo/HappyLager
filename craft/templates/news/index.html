@@ -1,97 +1,149 @@
-{#
- # News index template
- # -------------------
- #
- # This template gets loaded when "/news" is requested.
--#}
-
-{% extends "_layouts/site" %}
-
-{% block main %}
-	<header class="alt2">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+		<title>Brew News - Happy Lager</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="http://happylager.dev/assets/fonts/stylesheet.css">
+		<link rel="stylesheet" type="text/css" href="http://happylager.dev/assets/css/happylager.css">
+	</head>
+<body class="news">
+		<div id="bar">
 		<div class="flex">
 			<div class="g1-flex4 g2-flex6 g3-flex12">
-				<h1 class="alpha center reverse">{{ title }}</h1>
+				<div id="social">
+					<a href="https://dribbble.com/" data-icon="dribbble" title="Happy Lager on Dribbble"></a>
+					<a href="https://twitter.com/" data-icon="twitter" title="Happy Lager on Twitter"></a>
+					<a href="https://www.facebook.com/" data-icon="facebook" title="Happy Lager on Facebook"></a>
+				</div>
+				<div id="search">
+					<form action="http://happylager.dev/search/results" class="search-form">
+						<input type="search" name="q" placeholder="Search">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<header id="header">
+		<div class="flex">
+			<div class="g1-flex4 g2-flex6 g3-flex12">
+				<h1><a href="http://happylager.dev/"><img src="/assets/images/happylager.svg" width="300" height="125" alt="Happy Lager - Enjoying Every Bit - Since 2006"></a></h1>
+				<nav>
+					<ul>
+						<li>
+							<a href="http://happylager.dev/about" >
+							<strong>The Brewery</strong>
+							<span>-</span>
+							<em>About Us</em>
+							</a>
+						</li>
+						<li>
+						<a href="http://happylager.dev/services" >
+						<strong>How It’s Made</strong>
+						<span>-</span>
+						<em>Services</em>
+						</a>
+						</li>
+						<li>
+							<a href="http://happylager.dev/work" >
+							<strong>What’s On Tap</strong>
+							<span>-</span>
+							<em>Our Work</em>
+							</a>
+						</li>
+						<li>
+							<a href="http://happylager.dev/news" class="sel">
+							<strong>Brew News</strong>
+							<span>-</span>
+							<em>The Latest</em>
+							</a>
+						</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 	</header>
 
-	<div class="flex">
+	<main id="main" role="main">
+		<header class="alt2">
+			<div class="flex">
+				<div class="g1-flex4 g2-flex6 g3-flex12">
+					<h1 class="alpha center reverse">Brew News</h1>
+				</div>
+			</div>
+		</header>
 
-		{# Paginate the News entries in groups of 4 #}
-		{% paginate craft.entries.section('news').limit(4) as newsEntries %}
-
-			{# Loop through this page's News entries #}
-			{% for newsEntry in newsEntries %}
-
-				{# Figure out where this entry should link to #}
-				{% set url = newsEntry.type.handle == 'link' ? newsEntry.linkUrl : newsEntry.url %}
-
-				{# We give special treatment to the most recent News entry #}
-				{% set isFeaturedEntry = (loop.first and craft.request.pageNum == 1) %}
-
-				<article class="{% if isFeaturedEntry %}featured {% endif %}news-entry">
-					{% set image = newsEntry.featuredImage.first() %}
-					{% if image %}
-						<figure>
-							<a href="{{ url }}">
-								{% if isFeaturedEntry %}
-									<img src="{{ image.getUrl() }}" alt="{{ image.title }}" width="570" height="348">
-								{% else %}
-									<img src="{{ image.getUrl('thumb') }}" alt="{{ image.title }}" width="280" height="204">
-								{% endif %}
-							</a>
-						</figure>
-					{% endif %}
-
-					<div class="summary-wrap">
-						<h3><a href="{{ url }}">{{ newsEntry.title }}</a></h3>
-
-						{% if isFeaturedEntry %}
-							<span class="author">{{ newsEntry.author.name }}</span>
-						{% endif %}
-
-						{{ newsEntry.shortDescription }}
-
-						<p>
-							{% if newsEntry.type == 'link' %}
-								<a href="{{ url }}" class="more-link">Check it out</a>
-							{% else %}
-								{% if not isFeaturedEntry %}
-									<span class="author">{{ newsEntry.author.getFullName() }}</span>
-									<span class="separator">|</span>
-								{% endif %}
-								<a href="{{ url }}" class="more-link">Read More</a>
-							{% endif %}
-						</p>
-					</div>
-				</article>
-			{% endfor %}
-
+		<div class="flex">			
+			<article class="featured news-entry">
+				<figure>
+					<a href="http://happylager.dev/news/diva-becomes-famous"><img src="/assets/site/diva-cover.jpg" alt="diva-cover" width="570" height="348"></a>
+				</figure>
+				<div class="summary-wrap">
+					<h3><a href="http://happylager.dev/news/diva-becomes-famous">DIVA! Becomes Famous</a></h3>
+					<span class="author">admin</span>
+					<p>At the 2014 Webby Awards, Patton Oswald said that DIVA! “has done for women in the music industry what the 19th amendment did for women 100 years ago." Signissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non.</p>
+					<p><a href="http://happylager.dev/news/diva-becomes-famous" class="more-link">Read More</a></p>
+				</div>
+			</article>
+			<article class="news-entry">
+				<figure>
+					<a href="http://buildwithcraft.com"><img src="/assets/site/_thumb/news-link-2-image.jpg" alt="news-link-2-image" width="280" height="204"></a>
+				</figure>
+				<div class="summary-wrap">
+					<h3><a href="http://buildwithcraft.com">Photography Folio featured on AWWWARDS.com</a></h3>
+					<p>What a well developed site. I really enjoy the design and the attention to details and performance: great use of video and animations (with CSS3 and JS); categories section with so many images and video had a very good scroll frame rate...</p>
+					<p><a href="http://buildwithcraft.com" class="more-link">Check it out</a></p>
+				</div>
+			</article>
+			<article class="news-entry">
+				<figure>
+					<a href="http://buildwithcraft.com"><img src="/assets/site/_thumb/news-link-1-image.jpg" alt="news-link-1-image" width="280" height="204"></a>
+				</figure>
+						
+				<div class="summary-wrap">
+					<h3><a href="http://buildwithcraft.com">Fast Company Q&amp;A with Robin Richards</a></h3>
+					<p>The path to what I'm doing started with not knowing what I wanted to do. I had to make a decision about what I wanted to do as I was graduating college, and I could not figure it out. I majored in English because I couldn't figure out how to express my love of...</p>
+					<p><a href="http://buildwithcraft.com" class="more-link">Check it out</a></p>
+				</div>
+			</article>
+			<article class="news-entry">
+				<figure>
+					<a href="http://happylager.dev/news/how-deep-the-rabbit-hole-goes"><img src="/assets/site/_thumb/news-entry-1-image.jpg" alt="news-entry-1-image" width="280" height="204"></a>
+				</figure>
+						
+				<div class="summary-wrap">
+					<h3><a href="http://happylager.dev/news/how-deep-the-rabbit-hole-goes">How Deep the Rabbit Hole Goes</a></h3>
+					<p>Et harum quidem rerum facilis. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo mus quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut.</p>
+					<p><span class="author"></span>
+					<span class="separator">|</span><a href="http://happylager.dev/news/how-deep-the-rabbit-hole-goes" class="more-link">Read More</a></p>
+				</div>
+			</article>
 			<hr class="horz-rule">
 
 			<div class="pagination">
 				<ul>
-					{% if paginate.prevUrl %}
-						<li><a href="{{ paginate.prevUrl }}" class="pag-prev-link">Previous Page</a></li>
-					{% endif %}
-
-					{% for page, url in paginate.getPrevUrls(5) %}
-						<li><a href="{{ url }}">{{ page }}</a></li>
-					{% endfor %}
-
-					<li class="current">{{ paginate.currentPage }}</li>
-
-					{% for page, url in paginate.getNextUrls(5) %}
-						<li><a href="{{ url }}">{{ page }}</a></li>
-					{% endfor %}
-
-					{% if paginate.nextUrl %}
-						<li><a href="{{ paginate.nextUrl }}" class="pag-next-link">Next Page</a></li>
-					{% endif %}
+					<li class="current">1</li>
+					<li><a href="http://happylager.dev/news/p2">2</a></li>
+					<li><a href="http://happylager.dev/news/p2" class="pag-next-link">Next Page</a></li>
 				</ul>
 			</div>
-		{% endpaginate %}
+		</div>
+	</main>
 
-	</div>
-{% endblock %}
+	<footer id="footer">
+		<div class="flex">
+			<div class="g1-flex4 g2-flex3 g3-flex6">
+				<img src="/assets/images/hl.svg" width="76" height="76" alt="H.L.">
+				<p class="copyright">&copy; Copyright Happy Lager 2015</p>
+			</div>
+			<div class="g1-flex4 g2-flex3 g3-flex6">
+				<a class="contact" href="mailto:hi@happylager.dev">Pull up a barstool</a>
+			</div>
+			</div>
+		</div>
+	</footer>
+	</body>
+</html>
+
