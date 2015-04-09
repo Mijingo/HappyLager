@@ -1,0 +1,7 @@
+{% macro socialList(networks, className) %}
+	<ul {% if className %}class="{{ className }}"{% endif %}>
+	{% for network in networks %}
+		<li class="{{ network.name | lower }}"><a href="{{ network.url }}">{{ network.name }}</a></li>
+	{% endfor %}
+	</ul>
+{% endmacro %}

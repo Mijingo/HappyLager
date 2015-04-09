@@ -1,0 +1,25 @@
+{# Twig Test Code #}
+
+{% for entry in entries %}
+	{{ entry.body }}
+{% endfor %}
+
+{% for entry in CRAFT_DATA %}
+	{{ entry.CRAFT_DATA }}
+{% endfor %}
+
+{% for entry in craft.entries.section('news').limit('2') %}
+	{{ entry.title }}<br>
+{% endfor %}
+
+<select name="age">
+{% for age in 1..100 %}
+	<option name="age-{{ age }}">{{ age }}</option>
+{% endfor %}
+</select>
+
+<select name="age">
+{% for age in range(1, 100) %}
+	<option name="age-{{ age }}">{{ age }}</option>
+{% endfor %}
+</select>

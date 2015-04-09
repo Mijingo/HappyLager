@@ -1,0 +1,39 @@
+{% set networks = {
+	twitter: { name: "Twitter", url: "http://twitter.com/happylager" },
+	facebook: { name: "Facebook", url: "http://facebook.com/happylager" },
+	instagram: { name: "Instagram", url: "http://instagram.com/happylager" }
+}
+%}
+
+{% import '_macros' as siteMacros %}
+{% set page_title = "about happy lager." %}
+{% extends "_layouts/simple" %}
+{% block head %}
+	{{ parent() }}
+	<script type="text/javascript">
+	// js here
+	</script>
+{% endblock %}
+{% block title %}{{ page_title | trim('.') | title }}{% endblock %}
+{% block content %}
+	<h1>About Happy Lager </h1>
+	<p>All the thing you'd ever want to know about us.</p>
+
+	{{ siteMacros.socialList(networks, "three-share") }}
+
+	{% verbatim %}
+	{% macro socialList(networks, className) %}
+		&lt;ul {% if className %}class="{{ className }}"{% endif %}>
+		{% for network in networks %}
+			&lt;li class="{{ network.name | lower }}"><a href="{{ network.url }}">{{ network.name }}</a>&lt;/li>
+		{% endfor %}
+		&lt;/ul>
+	{% endmacro %}
+	{% endverbatim %}
+
+{% endblock %}
+
+
+
+
+
